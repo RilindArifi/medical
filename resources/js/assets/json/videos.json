@@ -1,0 +1,27 @@
+[
+  {
+    "Image": "avatar-01.jpg",
+    "Name": "Galaviz Lalema",
+    "Message": "Hi Guys, How are you?"
+  },
+  {
+    "Image": "avatar-02.jpg",
+    "Name": "Williams Bruk",
+    "Message": "non tellus dignissim"
+  },
+  {
+    "Image": "avatar-03.jpg",
+    "Name": "Laura Williams",
+    "Message": "Vivamus sed dictum dictum ligula, cursus blandit risus"
+  },
+  {
+    "Image": "avatar-04.jpg",
+    "Name": "Galaviz Lalema",
+    "Message": "Lorem ipsum dolor sit amet aliquam ut a ex aliquam ut a ex"
+  },
+  {
+    "Image": "avatar-05.jpg",
+    "Name": "Smith Bruklin",
+    "Message": "Vivamus sed dictum dictum ligula, cursus blandit risus Lorem ipsum dolor sit amet aliquam ut a ex aliquam ut a ex"
+  }
+]

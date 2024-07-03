@@ -1,0 +1,270 @@
+[
+  {
+    "tittle": "Main",
+    "showAsTab": true,
+    "separateRoute": true,
+    "menu": [
+      {
+        "menuValue": "Dashboard",
+        "hasSubRoute": false,
+        "showSubRoute": false,
+        "image": "menu-icon-01.svg",
+        "active_link": "dashboard",
+        "route": "/dashboard",
+        "subMenus": [],
+        "can" : "view dashboard"
+      },
+      {
+        "menuValue": "Appointments",
+        "hasSubRoute": true,
+        "showSubRoute": false,
+        "image": "menu-icon-04.svg",
+        "active_link": "appointments",
+        "can" : "view appointments",
+        "subMenus": [
+          {
+            "menuValue": "Appointment List",
+            "route": "/appointments",
+            "active_link": "/appointments",
+            "can" : "view appointments"
+          },
+          {
+            "menuValue": "Book Appointment",
+            "route": "/appointments/create",
+            "active_link": "/appointments/create",
+            "can" : "create appointments"
+          }
+        ]
+      },
+      {
+        "menuValue": "Doctors",
+        "hasSubRoute": true,
+        "showSubRoute": false,
+        "image": "menu-icon-02.svg",
+        "active_link": "doctors",
+        "can" : "view doctors",
+        "subMenus": [
+          {
+            "menuValue": "Doctors List",
+            "route": "/doctors",
+            "active_link": "doctors",
+            "can" : "view doctors"
+          },
+          {
+            "menuValue": "Add Doctor",
+            "route": "/doctors/create",
+            "active_link": "doctors/create",
+            "can" : "create doctors"
+          }
+        ]
+      },
+      {
+        "menuValue": "Patients",
+        "hasSubRoute": true,
+        "showSubRoute": false,
+        "image": "menu-icon-03.svg",
+        "active_link": "patients",
+        "can" : "view patients",
+        "subMenus": [
+          {
+            "menuValue": "Patients List",
+            "route": "/patients",
+            "active_link": "patients",
+            "can" : "view patients"
+          },
+          {
+            "menuValue": "Add Patient",
+            "route": "/patients/create",
+            "active_link": "patients/create",
+            "can" : "create patients"
+          }
+        ]
+      },
+
+      {
+        "menuValue": "Staff",
+        "hasSubRoute": true,
+        "showSubRoute": false,
+        "image": "menu-icon-08.svg",
+        "active_link": "staff",
+        "can" : "view staff",
+        "subMenus": [
+          {
+            "menuValue": "Staff List",
+            "route": "/staff",
+            "active_link": "/staff",
+            "can" : "view staff"
+          },
+          {
+            "menuValue": "Add Staff",
+            "route": "/staff/create",
+            "active_link": "/staff/create",
+            "can" : "create staff"
+          },
+          {
+            "menuValue": "Roles",
+            "route": "/roles",
+            "active_link": "/roles",
+            "can" : "view roles"
+          },
+          {
+            "menuValue": "Leaves",
+            "route": "/leaves",
+            "active_link": "/leaves",
+            "can" : "view leaves"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "tittle": "Administration",
+    "showAsTab": false,
+    "separateRoute": false,
+    "menu": [
+      {
+        "menuValue": "Doctor Schedule",
+        "hasSubRoute": true,
+        "showSubRoute": false,
+        "image": "menu-icon-05.svg",
+        "active_link": "schedules",
+        "can" : "view schedules",
+        "subMenus": [
+          {
+            "menuValue": "Schedule List",
+            "route": "/schedules",
+            "active_link": "/schedules",
+            "can" : "view schedules"
+          },
+          {
+            "menuValue": "Book Appointment",
+            "route": "/schedules/create",
+            "active_link": "/schedules/create",
+            "can" : "create schedules"
+          }
+        ]
+      },
+      {
+        "menuValue": "Departments",
+        "hasSubRoute": true,
+        "showSubRoute": false,
+        "image": "menu-icon-06.svg",
+        "active_link": "departments",
+        "can" : "view departments",
+        "subMenus": [
+          {
+            "menuValue": "Department List",
+            "route": "/departments",
+            "active_link": "/departments",
+            "can" : "view departments"
+          },
+          {
+            "menuValue": "Add Department",
+            "route": "/departments/create",
+            "active_link": "/departments/create",
+            "can" : "create departments"
+          }
+        ]
+      },
+      {
+        "menuValue": "Accounts",
+        "hasSubRoute": true,
+        "showSubRoute": false,
+        "image": "menu-icon-07.svg",
+        "active_link": "accounts",
+        "can" : "view accounts",
+        "subMenus": [
+          {
+            "menuValue": "Invoices",
+            "route": "/accounts/invoices",
+            "active_link": "/accounts/invoices",
+            "can" : "view invoices"
+          },
+          {
+            "menuValue": "Payments",
+            "route": "/accounts/payments",
+            "active_link": "/accounts/payments",
+            "can" : "view payments"
+          },
+          {
+            "menuValue": "Expenses",
+            "route": "/accounts/expenses",
+            "active_link": "/accounts/expenses",
+            "can" : "view expenses"
+          },
+          {
+            "menuValue": "Taxes",
+            "route": "/accounts/taxes",
+            "active_link": "/accounts/taxes",
+            "can" : "view taxes"
+          }
+        ]
+      },
+      {
+        "menuValue": "Payroll",
+        "hasSubRoute": true,
+        "showSubRoute": false,
+        "image": "menu-icon-09.svg",
+        "active_link": "payroll",
+        "can" : "view payroll",
+        "subMenus": [
+          {
+            "menuValue": "Employee Salary",
+            "route": "/payroll/salary",
+            "active_link": "/payroll/salary",
+            "can" : "view employee_salaries"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "tittle": "Extras",
+    "showAsTab": false,
+    "separateRoute": false,
+    "menu": [
+      {
+        "menuValue": "Reports",
+        "hasSubRoute": true,
+        "showSubRoute": false,
+        "image": "menu-icon-02.svg",
+        "active_link": "reports",
+        "can" : "view reports",
+        "subMenus": [
+          {
+            "menuValue": "Expense Report",
+            "route": "/reports/expense-reports",
+            "active_link": "/reports/expense-reports",
+            "can" : "view expense-reports"
+          },
+          {
+            "menuValue": "Invoice Report",
+            "route": "/reports/invoice-reports",
+            "active_link": "/reports/invoice-reports",
+            "can" : "view invoice-reports"
+          }
+        ]
+      },
+      {
+        "menuValue": "Activities",
+        "route": "/activities",
+        "hasSubRoute": false,
+        "showSubRoute": false,
+        "image": "menu-icon-14.svg",
+        "active_link": "/activities",
+        "can" : "view activities",
+        "subMenus": []
+      },
+      {
+        "menuValue": "Settings",
+        "route": "/settings",
+        "hasSubRoute": false,
+        "showSubRoute": false,
+        "active_link": "/settings",
+        "image": "menu-icon-16.svg",
+        "can" : "manage settings",
+        "subMenus": []
+      }
+    ]
+  }
+]

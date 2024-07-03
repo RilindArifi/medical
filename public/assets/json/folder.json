@@ -1,0 +1,22 @@
+[
+  {
+    "Image": "folder-icon-01.svg",
+    "Work": "Personal",
+    "Number": "50"
+  },
+  {
+    "Image": "folder-icon-02.svg",
+    "Work": "Office",
+    "Number": "120"
+  },
+  {
+    "Image": "folder-icon-03.svg",
+    "Work": "Bills",
+    "Number": "20"
+  },
+  {
+    "Image": "folder-icon-04.svg",
+    "Work": "Medical",
+    "Number": "20"
+  }
+]
