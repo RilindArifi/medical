@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\StatusGlobal;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\Rules\Enum;
 
-class RegisterRequest extends FormRequest
+class DepartmentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,10 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name'  => ['required', 'string', 'max:255'],
-            'email'      => ['required', 'string', 'max:255', Rule::unique('users')],
-            'password'   => ['required', 'confirmed', Password::min(8)],
+            'name'        => ['required'],
+            'description' => ['nullable'],
+            'date'        => 'required',
+            'status'      => 'required', new Enum(StatusGlobal::class),
         ];
     }
 }

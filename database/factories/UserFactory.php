@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\StatusGlobal;
+use App\Models\Department;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -23,12 +25,18 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $departments = Department::pluck('id');
+        $statuses = StatusGlobal::values();
+
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'department_id' => $this->faker->randomElement($departments),
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'email'     => $this->faker->email(),
+            'password'  => $this->faker->password(),
+            'mobile'   => $this->faker->phoneNumber(),
+            'education'   => $this->faker->text(5),
+            'status'   => $this->faker->randomElement($statuses)
         ];
     }
 

@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
-            $table->string('department_name');
-            $table->string('department_head');
+            $table->string('name');
             $table->string('description')->nullable();
             $table->date('date');
             $table->enum('status', StatusGlobal::values())->default(StatusGlobal::ACTIVE->value);
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('users', function (Blueprint $table) {
@@ -33,9 +33,9 @@ return new class extends Migration
             $table->date('dob')->nullable();
             $table->string('education')->nullable();
             $table->text('address')->nullable();
-            $table->text('country')->nullable();
-            $table->text('city')->nullable();
-            $table->text('postal_code')->nullable();
+            $table->string('country')->nullable();
+            $table->string('city')->nullable();
+            $table->integer('postal_code')->nullable();
             $table->enum('status', StatusGlobal::values())->default(StatusGlobal::ACTIVE->value);
             $table->enum('gender', Gender::values())->nullable();
             $table->timestamp('email_verified_at')->nullable();
