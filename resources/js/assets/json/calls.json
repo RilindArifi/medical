@@ -1,58 +1,58 @@
 [
-  {
-    "Avatar": "William Stephin",
-    "Avatar_Img": "avatar-05.jpg",
-    "Mins": "5 min Ago",
-    "Time": "10:35",
-    "Call_Img": "call-incoming.svg"
-  },
-  {
-    "Avatar": "William Stephin",
-    "Avatar_Img": "avatar-02.jpg",
-    "Mins": "5 min Ago",
-    "Time": "11:35",
-    "Call_Img": "call-outgoing.svg"
-  },
-  {
-    "Avatar": "William Stephin",
-    "Avatar_Img": "avatar-03.jpg",
-    "Mins": "5 min Ago",
-    "Time": "10:35",
-    "Call_Img": "call-incoming.svg"
-  },
-  {
-    "Avatar": "Bernardo James",
-    "Avatar_Img": "avatar-04.jpg",
-    "Mins": "6.32 PM",
-    "Time": "10:35",
-    "Call_Img": "call-incoming.svg"
-  },
-  {
-    "Avatar": "Harald Kowalski",
-    "Avatar_Img": "avatar-05.jpg",
-    "Mins": "6.32 Yesterday",
-    "Time": "10:15",
-    "Call_Img": "call-incoming.svg"
-  },
-  {
-    "Avatar": "Alexandr Donnelly",
-    "Avatar_Img": "avatar-06.jpg",
-    "Mins": "05:32 PM Yesterday",
-    "Time": "09:20",
-    "Call_Img": "call-incoming.svg"
-  },
-  {
-    "Avatar": "Regina Dickerson",
-    "Avatar_Img": "avatar-07.jpg",
-    "Mins": "06:00 PM, 30 Sep 2022",
-    "Time": "11:35",
-    "Call_Img": "call-outgoing.svg"
-  },
-  {
-    "Avatar": "Forest Kroch",
-    "Avatar_Img": "avatar-08.jpg",
-    "Mins": "05:32 PM Yesterday",
-    "Time": "10:35",
-    "Call_Img": "call-incoming.svg"
-  }
+    {
+        "Avatar": "William Stephin",
+        "Avatar_Img": "avatar-05.jpg",
+        "Mins": "5 min Ago",
+        "Time": "10:35",
+        "Call_Img": "call-incoming.svg"
+    },
+    {
+        "Avatar": "William Stephin",
+        "Avatar_Img": "avatar-02.jpg",
+        "Mins": "5 min Ago",
+        "Time": "11:35",
+        "Call_Img": "call-outgoing.svg"
+    },
+    {
+        "Avatar": "William Stephin",
+        "Avatar_Img": "avatar-03.jpg",
+        "Mins": "5 min Ago",
+        "Time": "10:35",
+        "Call_Img": "call-incoming.svg"
+    },
+    {
+        "Avatar": "Bernardo James",
+        "Avatar_Img": "avatar-04.jpg",
+        "Mins": "6.32 PM",
+        "Time": "10:35",
+        "Call_Img": "call-incoming.svg"
+    },
+    {
+        "Avatar": "Harald Kowalski",
+        "Avatar_Img": "avatar-05.jpg",
+        "Mins": "6.32 Yesterday",
+        "Time": "10:15",
+        "Call_Img": "call-incoming.svg"
+    },
+    {
+        "Avatar": "Alexandr Donnelly",
+        "Avatar_Img": "avatar-06.jpg",
+        "Mins": "05:32 PM Yesterday",
+        "Time": "09:20",
+        "Call_Img": "call-incoming.svg"
+    },
+    {
+        "Avatar": "Regina Dickerson",
+        "Avatar_Img": "avatar-07.jpg",
+        "Mins": "06:00 PM, 30 Sep 2022",
+        "Time": "11:35",
+        "Call_Img": "call-outgoing.svg"
+    },
+    {
+        "Avatar": "Forest Kroch",
+        "Avatar_Img": "avatar-08.jpg",
+        "Mins": "05:32 PM Yesterday",
+        "Time": "10:35",
+        "Call_Img": "call-incoming.svg"
+    }
 ]

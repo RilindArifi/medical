@@ -1,58 +1,58 @@
 [
-  {
-    "id": 1,
-    "avatar": "M",
-    "name": "Mark Kowalsky",
-    "message": "Lorem ipsum dolor sit amet, consectetur adipiscing",
-    "class": "list-item",
-    "time": "12:28 AM"
-  },
-  {
-    "id": 2,
-    "avatar": "L",
-    "name": "Lucas Hess",
-    "message": "Lorem ipsum dolor sit amet, consectetur adipiscing",
-    "class": "list-item new-message",
-    "time": "12:28 AM"
-  },
-  {
-    "id": 3,
-    "avatar": "C",
-    "name": "Claire Mapes",
-    "message": "Lorem ipsum dolor sit amet, consectetur adipiscing",
-    "class": "list-item",
-    "time": "12:28 AM"
-  },
-  {
-    "id": 4,
-    "avatar": "M",
-    "name": "Melita Faucher",
-    "message": "Lorem ipsum dolor sit amet, consectetur adipiscing",
-    "class": "list-item",
-    "time": "12:28 AM"
-  },
-  {
-    "id": 5,
-    "avatar": "J",
-    "name": "Jeffery Lalor",
-    "message": "Lorem ipsum dolor sit amet, consectetur adipiscing",
-    "class": "list-item",
-    "time": "12:28 AM"
-  },
-  {
-    "id": 6,
-    "avatar": "L",
-    "name": "Loren Gatlin",
-    "message": "Lorem ipsum dolor sit amet, consectetur adipiscing",
-    "class": "list-item",
-    "time": "12:28 AM"
-  },
-  {
-    "id": 7,
-    "avatar": "T",
-    "name": "Tarah Shropshire",
-    "message": "Lorem ipsum dolor sit amet, consectetur adipiscing",
-    "class": "list-item",
-    "time": "12:28 AM"
-  }
+    {
+        "id": 1,
+        "avatar": "M",
+        "name": "Mark Kowalsky",
+        "message": "Lorem ipsum dolor sit amet, consectetur adipiscing",
+        "class": "list-item",
+        "time": "12:28 AM"
+    },
+    {
+        "id": 2,
+        "avatar": "L",
+        "name": "Lucas Hess",
+        "message": "Lorem ipsum dolor sit amet, consectetur adipiscing",
+        "class": "list-item new-message",
+        "time": "12:28 AM"
+    },
+    {
+        "id": 3,
+        "avatar": "C",
+        "name": "Claire Mapes",
+        "message": "Lorem ipsum dolor sit amet, consectetur adipiscing",
+        "class": "list-item",
+        "time": "12:28 AM"
+    },
+    {
+        "id": 4,
+        "avatar": "M",
+        "name": "Melita Faucher",
+        "message": "Lorem ipsum dolor sit amet, consectetur adipiscing",
+        "class": "list-item",
+        "time": "12:28 AM"
+    },
+    {
+        "id": 5,
+        "avatar": "J",
+        "name": "Jeffery Lalor",
+        "message": "Lorem ipsum dolor sit amet, consectetur adipiscing",
+        "class": "list-item",
+        "time": "12:28 AM"
+    },
+    {
+        "id": 6,
+        "avatar": "L",
+        "name": "Loren Gatlin",
+        "message": "Lorem ipsum dolor sit amet, consectetur adipiscing",
+        "class": "list-item",
+        "time": "12:28 AM"
+    },
+    {
+        "id": 7,
+        "avatar": "T",
+        "name": "Tarah Shropshire",
+        "message": "Lorem ipsum dolor sit amet, consectetur adipiscing",
+        "class": "list-item",
+        "time": "12:28 AM"
+    }
 ]

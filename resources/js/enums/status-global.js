@@ -1,3 +1,2 @@
-
-export const ACTIVE = 'Active';
-export const INACTIVE = 'In Active';
+export const ACTIVE = "Active";
+export const INACTIVE = "In Active";

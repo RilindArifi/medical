@@ -1,37 +1,37 @@
 [
-  {
-    "Image": "inbox.svg",
-    "class": "active",
-    "class1": "comman-flex",
-    "Number": "50",
-    "Name": "Inbox"
-  },
-  {
-    "Image": "sent.svg",
-    "class": "",
-    "class1": "",
-    "Number": "120",
-    "Name": "Sent"
-  },
-  {
-    "Image": "draft.svg",
-    "class": "",
-    "class1": "",
-    "Number": "20",
-    "Name": "Draft"
-  },
-  {
-    "Image": "star.svg",
-    "class": "",
-    "class1": "",
-    "Number": "05",
-    "Name": "Starred"
-  },
-  {
-    "Image": "trash.svg",
-    "class": "",
-    "class1": "",
-    "Number": "12",
-    "Name": "Trash"
-  }
+    {
+        "Image": "inbox.svg",
+        "class": "active",
+        "class1": "comman-flex",
+        "Number": "50",
+        "Name": "Inbox"
+    },
+    {
+        "Image": "sent.svg",
+        "class": "",
+        "class1": "",
+        "Number": "120",
+        "Name": "Sent"
+    },
+    {
+        "Image": "draft.svg",
+        "class": "",
+        "class1": "",
+        "Number": "20",
+        "Name": "Draft"
+    },
+    {
+        "Image": "star.svg",
+        "class": "",
+        "class1": "",
+        "Number": "05",
+        "Name": "Starred"
+    },
+    {
+        "Image": "trash.svg",
+        "class": "",
+        "class1": "",
+        "Number": "12",
+        "Name": "Trash"
+    }
 ]

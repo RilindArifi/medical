@@ -1,11 +1,10 @@
 import Cookies from "js-cookie";
-import {useAuthStore} from "@/stores/auth.js";
+import { useAuthStore } from "@/stores/auth.js";
 
 export default async (to, from, next) => {
-
-    if(!Cookies.get('token')) {
-        next({name: 'login'})
+    if (!Cookies.get("token")) {
+        next({ name: "login" });
     }
-    await useAuthStore().fetchUser()
+    await useAuthStore().fetchUser();
     next();
-}
+};

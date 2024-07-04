@@ -1,74 +1,74 @@
 [
-  {
-    "category": "Diabetes",
-    "Message": "58",
-    "Views": "500",
-    "Name": "Jenifer Robinson",
-    "Department": "M.B.B.S, Diabetologist",
-    "Date": "05 Sep 2022",
-    "Title": "Simple Changes That Lowered My Mom's Blood Pressure",
-    "Link": "Read more in 8 Minutes",
-    "Image": "blog-1.jpg",
-    "Avatar": "avatar-02.jpg"
-  },
-  {
-    "category": "Safety",
-    "Message": "18",
-    "Views": "5k",
-    "Name": "Mark hay smith",
-    "Department": "M.B.B.S, Neurologist",
-    "Date": "05 Sep 2022",
-    "Title": "Vaccines Are Close - But Right Now We Need to Hunker Down",
-    "Link": "Read more in 2 Minutes",
-    "Image": "blog-2.jpg",
-    "Avatar": "avatar-02.jpg"
-  },
-  {
-    "category": "Dermotology",
-    "Message": "28",
-    "Views": "2.5k",
-    "Name": "Denise Stevens",
-    "Department": "M.B.B.S, Dermotologist",
-    "Date": "05 Sep 2022",
-    "Title": "Hair Loss On One Side of Head – Causes & Treatments",
-    "Link": "Read more in 3 Minutes",
-    "Image": "blog-3.jpg",
-    "Avatar": "avatar-03.jpg"
-  },
-  {
-    "category": "Ophthalmology",
-    "Message": "48",
-    "Views": "600",
-    "Name": "Laura Williams",
-    "Department": "M.B.B.S, Ophthalmologist",
-    "Date": "05 Sep 2022",
-    "Title": "Eye Care Routine To Get Rid Of Under Eye Circles And Puffiness",
-    "Link": "Read more in 5 Minutes",
-    "Image": "blog-4.jpg",
-    "Avatar": "avatar-05.jpg"
-  },
-  {
-    "category": "Dentist",
-    "Message": "48",
-    "Views": "600",
-    "Name": "Linda Carpenter",
-    "Department": "M.B.B.S, Dentist",
-    "Date": "05 Sep 2022",
-    "Title": "5 Facts About Teeth Whitening You Should Know",
-    "Link": "Read more in 3 Minutes",
-    "Image": "blog-5.jpg",
-    "Avatar": "avatar-06.jpg"
-  },
-  {
-    "category": "Gynecologist",
-    "Message": "18",
-    "Views": "300",
-    "Name": "Mark hay smith",
-    "Department": "M.B.B.S, Gynecologist",
-    "Date": "05 Sep 2022",
-    "Title": "Sciatica: Symptoms, Causes & Treatments",
-    "Link": "Read more in 10 Minutes",
-    "Image": "blog-6.jpg",
-    "Avatar": "avatar-04.jpg"
-  }
+    {
+        "category": "Diabetes",
+        "Message": "58",
+        "Views": "500",
+        "Name": "Jenifer Robinson",
+        "Department": "M.B.B.S, Diabetologist",
+        "Date": "05 Sep 2022",
+        "Title": "Simple Changes That Lowered My Mom's Blood Pressure",
+        "Link": "Read more in 8 Minutes",
+        "Image": "blog-1.jpg",
+        "Avatar": "avatar-02.jpg"
+    },
+    {
+        "category": "Safety",
+        "Message": "18",
+        "Views": "5k",
+        "Name": "Mark hay smith",
+        "Department": "M.B.B.S, Neurologist",
+        "Date": "05 Sep 2022",
+        "Title": "Vaccines Are Close - But Right Now We Need to Hunker Down",
+        "Link": "Read more in 2 Minutes",
+        "Image": "blog-2.jpg",
+        "Avatar": "avatar-02.jpg"
+    },
+    {
+        "category": "Dermotology",
+        "Message": "28",
+        "Views": "2.5k",
+        "Name": "Denise Stevens",
+        "Department": "M.B.B.S, Dermotologist",
+        "Date": "05 Sep 2022",
+        "Title": "Hair Loss On One Side of Head – Causes & Treatments",
+        "Link": "Read more in 3 Minutes",
+        "Image": "blog-3.jpg",
+        "Avatar": "avatar-03.jpg"
+    },
+    {
+        "category": "Ophthalmology",
+        "Message": "48",
+        "Views": "600",
+        "Name": "Laura Williams",
+        "Department": "M.B.B.S, Ophthalmologist",
+        "Date": "05 Sep 2022",
+        "Title": "Eye Care Routine To Get Rid Of Under Eye Circles And Puffiness",
+        "Link": "Read more in 5 Minutes",
+        "Image": "blog-4.jpg",
+        "Avatar": "avatar-05.jpg"
+    },
+    {
+        "category": "Dentist",
+        "Message": "48",
+        "Views": "600",
+        "Name": "Linda Carpenter",
+        "Department": "M.B.B.S, Dentist",
+        "Date": "05 Sep 2022",
+        "Title": "5 Facts About Teeth Whitening You Should Know",
+        "Link": "Read more in 3 Minutes",
+        "Image": "blog-5.jpg",
+        "Avatar": "avatar-06.jpg"
+    },
+    {
+        "category": "Gynecologist",
+        "Message": "18",
+        "Views": "300",
+        "Name": "Mark hay smith",
+        "Department": "M.B.B.S, Gynecologist",
+        "Date": "05 Sep 2022",
+        "Title": "Sciatica: Symptoms, Causes & Treatments",
+        "Link": "Read more in 10 Minutes",
+        "Image": "blog-6.jpg",
+        "Avatar": "avatar-04.jpg"
+    }
 ]

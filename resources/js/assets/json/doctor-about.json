@@ -1,14 +1,14 @@
 [
-  {
-    "Year": "2002-2005",
-    "Degree": "M.D. of Medicine",
-    "Institute": "University of Wyoming",
-    "Result": "Distinction"
-  },
-  {
-    "Year": "2005-2014",
-    "Degree": "MBBS",
-    "Institute": "Netherland Medical College",
-    "Result": "Distinction"
-  }
+    {
+        "Year": "2002-2005",
+        "Degree": "M.D. of Medicine",
+        "Institute": "University of Wyoming",
+        "Result": "Distinction"
+    },
+    {
+        "Year": "2005-2014",
+        "Degree": "MBBS",
+        "Institute": "Netherland Medical College",
+        "Result": "Distinction"
+    }
 ]

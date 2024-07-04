@@ -1,46 +1,46 @@
 [
-  {
-    "id": 1,
-    "No": "R00001",
-    "Image": "avatar-02.jpg",
-    "Name": "Andrea Lalema",
-    "Age": "21",
-    "DOB": "07 January 2002",
-    "Diagnosis": "Heart attack",
-    "Triage": "Non Urgent",
-    "Class": "custom-badge status-green"
-  },
-  {
-    "id": 2,
-    "No": "R00002",
-    "Image": "avatar-03.jpg",
-    "Name": "Mark Hay Smith",
-    "Age": "23",
-    "DOB": "06 January 2002",
-    "Diagnosis": "Jaundice",
-    "Triage": "Emergency",
-    "Class": "custom-badge status-pink"
-  },
-  {
-    "id": 3,
-    "No": "R00003",
-    "Image": "avatar-04.jpg",
-    "Name": "Mark Hay Smith",
-    "Age": "25",
-    "DOB": "10 January 2002",
-    "Diagnosis": "Malaria",
-    "Triage": "Out Patient",
-    "Class": "custom-badge status-gray"
-  },
-  {
-    "id": 4,
-    "No": "R00004",
-    "Image": "avatar-05.jpg",
-    "Name": "Galaviz Lalema",
-    "Age": "21",
-    "DOB": "09 January 2002",
-    "Diagnosis": "Typhoid",
-    "Triage": "Non Urgent",
-    "Class": "custom-badge status-orange"
-  }
+    {
+        "id": 1,
+        "No": "R00001",
+        "Image": "avatar-02.jpg",
+        "Name": "Andrea Lalema",
+        "Age": "21",
+        "DOB": "07 January 2002",
+        "Diagnosis": "Heart attack",
+        "Triage": "Non Urgent",
+        "Class": "custom-badge status-green"
+    },
+    {
+        "id": 2,
+        "No": "R00002",
+        "Image": "avatar-03.jpg",
+        "Name": "Mark Hay Smith",
+        "Age": "23",
+        "DOB": "06 January 2002",
+        "Diagnosis": "Jaundice",
+        "Triage": "Emergency",
+        "Class": "custom-badge status-pink"
+    },
+    {
+        "id": 3,
+        "No": "R00003",
+        "Image": "avatar-04.jpg",
+        "Name": "Mark Hay Smith",
+        "Age": "25",
+        "DOB": "10 January 2002",
+        "Diagnosis": "Malaria",
+        "Triage": "Out Patient",
+        "Class": "custom-badge status-gray"
+    },
+    {
+        "id": 4,
+        "No": "R00004",
+        "Image": "avatar-05.jpg",
+        "Name": "Galaviz Lalema",
+        "Age": "21",
+        "DOB": "09 January 2002",
+        "Diagnosis": "Typhoid",
+        "Triage": "Non Urgent",
+        "Class": "custom-badge status-orange"
+    }
 ]
