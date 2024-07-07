@@ -50,7 +50,7 @@ class StaffService extends ModelService
 
         $this->syncPermissions();
 
-        return $this->model;
+        return $staff;
     }
 
     public function syncPermissions(): void

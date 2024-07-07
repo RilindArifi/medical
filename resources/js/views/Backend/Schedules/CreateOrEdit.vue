@@ -3,7 +3,7 @@ import { dateFormat } from "@/utils/strings.js";
 import DoctorSelect from "@/components/doctors/DoctorSelect.vue";
 import RadioStatus from "@/components/RadioStatus.vue";
 import RButton from "@/components/RButton.vue";
-import { ref } from "vue";
+import {ref, watch} from "vue";
 import useModelOperations from "@/composables/model-operations.js";
 import { useRoute, useRouter } from "vue-router";
 import useForm from "@/composables/form.js";
@@ -17,7 +17,7 @@ const model = ref({}),
     models = useModelOperations("schedules"),
     route = useRoute(),
     router = useRouter(),
-    modelId = route.params.id,
+    modelId = ref(route.params.id),
     {
         isLoading,
         state,
@@ -64,12 +64,12 @@ const model = ref({}),
             return;
         }
         await prepareRequest(() =>
-            (modelId
-                ? models.updateAction(modelId, state.value)
+            (modelId.value
+                ? models.updateAction(modelId.value, state.value)
                 : models.storeAction(state.value)
             ).then((response) => {
                 message.success(
-                    `Schedule was successfully ${modelId ? "updated" : "created"}.`,
+                    `Schedule was successfully ${modelId.value ? "updated" : "created"}.`,
                 );
                 router.push({
                     name: "schedules.edit",
@@ -77,17 +77,27 @@ const model = ref({}),
                 });
             }),
         );
+    },
+    fetchModelData = (id) => {
+        isLoading.value = true;
+        models
+            .fetchSingle(id)
+            .then((response) => {
+                model.value = response.data.data;
+            })
+            .finally(() => (isLoading.value = false));
     };
 
-if (modelId) {
-    isLoading.value = true;
-    models
-        .fetchSingle(modelId)
-        .then((response) => {
-            model.value = response.data.data;
-        })
-        .finally(() => (isLoading.value = false));
+if (modelId.value) {
+    fetchModelData(modelId.value);
 }
+
+watch(() => route.params.id, (newId) => {
+    modelId.value = newId;
+    if (newId) {
+        fetchModelData(newId);
+    }
+});
 </script>
 
 <template>
@@ -109,7 +119,11 @@ if (modelId) {
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-heading">
-                                                <h4>Add Schedule</h4>
+                                                <h4>{{
+                                                        modelId
+                                                            ? "Update Schedule"
+                                                            : "Add Schedule"
+                                                    }}</h4>
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-6 col-xl-6">

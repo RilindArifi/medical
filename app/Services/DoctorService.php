@@ -44,6 +44,6 @@ class DoctorService extends ModelService
                 ->toMediaCollection('avatar');
         }
 
-        return $this->model;
+        return $doctor;
     }
 }

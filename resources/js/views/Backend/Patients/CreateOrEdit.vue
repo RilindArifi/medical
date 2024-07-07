@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import {ref, watch} from "vue";
 import useForm from "@/composables/form.js";
 import { email, required } from "@vuelidate/validators";
 import { ACTIVE } from "@/enums/status-global.js";
@@ -10,11 +10,12 @@ import RButton from "@/components/RButton.vue";
 import GeneralForm from "@/components/form/General.vue";
 import Addresses from "@/components/form/Addresses.vue";
 
+
 const model = ref({}),
     models = useModelOperations("patients"),
     route = useRoute(),
     router = useRouter(),
-    modelId = route.params.id,
+    modelId = ref(route.params.id),
     {
         isLoading,
         state,
@@ -76,12 +77,12 @@ const model = ref({}),
             return;
         }
         await prepareRequest(() =>
-            (modelId
-                ? models.updateAction(modelId, state.value)
+            (modelId.value
+                ? models.updateAction(modelId.value, state.value)
                 : models.storeAction(state.value)
             ).then((response) => {
                 message.success(
-                    `Patient was successfully ${modelId ? "updated" : "created"}.`,
+                    `Patient was successfully ${modelId.value ? "updated" : "created"}.`,
                 );
                 router.push({
                     name: "patients.edit",
@@ -89,17 +90,27 @@ const model = ref({}),
                 });
             }),
         );
+    },
+    fetchModelData = (id) => {
+        isLoading.value = true;
+        models
+            .fetchSingle(id)
+            .then((response) => {
+                model.value = response.data.data;
+            })
+            .finally(() => (isLoading.value = false));
     };
 
-if (modelId) {
-    isLoading.value = true;
-    models
-        .fetchSingle(modelId)
-        .then((response) => {
-            model.value = response.data.data;
-        })
-        .finally(() => (isLoading.value = false));
+if (modelId.value) {
+    fetchModelData(modelId.value);
 }
+
+watch(() => route.params.id, (newId) => {
+    modelId.value = newId;
+    if (newId) {
+        fetchModelData(newId);
+    }
+});
 </script>
 
 <template>

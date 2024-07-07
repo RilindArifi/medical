@@ -19,4 +19,11 @@ onBeforeMount(() => {
     </div>
 </template>
 
-<style scoped></style>
+<style >
+:where(.css-dev-only-do-not-override-1hsjdkk).ant-table-wrapper .ant-table-thead>tr>th, :where(.css-dev-only-do-not-override-1hsjdkk).ant-table-wrapper .ant-table-tbody>tr>td, :where(.css-dev-only-do-not-override-1hsjdkk).ant-table-wrapper tfoot>tr>th, :where(.css-dev-only-do-not-override-1hsjdkk).ant-table-wrapper tfoot>tr>td {
+    padding: 8px 16px;
+}
+:where(.css-dev-only-do-not-override-1hsjdkk).ant-select-single:not( .ant-select-customize-input ) .ant-select-selector {
+    height: 26px;
+}
+</style>

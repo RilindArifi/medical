@@ -1,8 +1,206 @@
+<script setup>
+import useModelOperations from "@/composables/model-operations.js";
+import { computed, reactive, ref, watch } from "vue";
+import { message } from "ant-design-vue";
+import { ACTIVE, INACTIVE } from "@/enums/status-global.js";
+import ButtonGroup from "@/components/table/ButtonGroup.vue";
+import EditModel from "@/components/table/EditModel.vue";
+import ForceDeleteModel from "@/components/table/DeleteModel.vue";
+import ActiveModel from "@/components/table/EnableModel.vue";
+import DeleteModel from "@/components/table/DeleteModel.vue";
+import InactiveModel from "@/components/table/DisableModel.vue";
+import RestoreModel from "@/components/table/RestoreModel.vue";
+import VueAvatar from "@/components/VueAvatar.vue";
+import {
+    APPROVED,
+    CANCELLED,
+    PENDING,
+    REJECTED,
+} from "@/enums/status-appointments.js";
+import StaffSelect from "@/components/staff/StaffSelect.vue";
+import LeaveTypeSelect from "@/components/leaves/LeaveTypeSelect.vue";
+import LeaveStatusSelect from "@/components/leaves/LeaveStatusSelect.vue";
+import { dateFormat, rangePresets } from "@/utils/strings.js";
+import PaymentsMethod from "@/components/pay/PaymentsMethod.vue";
+
+const model = useModelOperations("expenses"),
+    isLoading = ref(false),
+    data = ref([]),
+    state = reactive({
+        per_page: 10,
+        page: 1,
+        sort: { prop: "id", order: "descending" },
+        deleted: false,
+        search: "",
+        status: null,
+        staff_id: null,
+        leave_type_id: null,
+        from: null,
+        to: null,
+        custom: [],
+    }),
+    resetFilters = () => {
+        (state.search = ""),
+            (state.status = null),
+            (state.paid_by = null),
+            (state.staff_id = null),
+            (state.leave_type_id = null),
+            (state.from = null),
+            (state.to = null),
+            (state.custom = []);
+    },
+    pagination = computed(() => ({
+        total: data.value.meta?.total,
+        current: state.page,
+        pageSize: state.per_page,
+    })),
+    fetchData = (loading) => {
+        isLoading.value = loading;
+        model
+            .fetchData(state)
+            .then((response) => {
+                data.value = response.data;
+            })
+            .finally(() => (isLoading.value = false));
+    },
+    handleTableChange = (pag, filters, sorter) => {
+        state.page = pag.current;
+        state.per_page = pag.pageSize;
+        state.sort.order = sorter.order;
+        state.status = filters.status ? filters.status[0] : null;
+    },
+    stateDeleted = () => {
+        state.deleted = !state.deleted;
+    },
+    deleteAction = (id) => {
+        model.deleteAction(id).then(() => {
+            message.success({ content: "Expense was successfully deleted." });
+            fetchData(false);
+        });
+    },
+    restoreAction = (id) => {
+        model.restoreAction(id).then(() => {
+            message.success({ content: "Expense was successfully restored." });
+            fetchData(false);
+        });
+    },
+    forceDeleteAction = (id) => {
+        model.forceDeleteAction(id).then(() => {
+            message.success({
+                content: "Expense was successfully force deleted.",
+            });
+            fetchData(false);
+        });
+    },
+    enableAction = (id) => {
+        model.enableAction(id).then(() => {
+            message.success({ content: `Expense was successfully ${ACTIVE}.` });
+            fetchData(false);
+        });
+    },
+    disableAction = (id) => {
+        model.disableAction(id).then(() => {
+            message.success({ content: `Expense was successfully ${INACTIVE}.` });
+            fetchData(false);
+        });
+    },
+    defineClassByStatus = (status) => {
+        if (status === PENDING) {
+            return "bg-primary-light";
+        } else if (status === APPROVED) {
+            return "bg-success-light";
+        } else {
+            return "bg-danger-light";
+        }
+    },
+    onRangeChange = (dates, dateStrings) => {
+        if (dates) {
+            state.custom.push(dateStrings[0], dateStrings[0]);
+        }
+    };
+
+watch(state, () => fetchData(true), { immediate: true });
+
+
+
+const columns = [
+    {
+        title: "Purchase by",
+        key: "Purchaseby",
+        sorter: {},
+    },
+    {
+        title: "Item",
+        dataIndex: "item_name",
+        sorter: {},
+    },
+    {
+        title: "Purchase From",
+        dataIndex: "purchase_from",
+        sorter: {},
+    },
+    {
+        title: "Paid by",
+        dataIndex: "paid_by",
+        sorter: {},
+    },
+    {
+        title: "Date",
+        dataIndex: "purchase_date",
+        sorter: {},
+    },
+    {
+        title: "Amount",
+        dataIndex: "amount",
+        sorter: {},
+    },
+    {
+        title: "Status",
+        dataIndex: "status",
+        key: "status",
+        filters: [
+            {
+                text: PENDING,
+                value: PENDING,
+            },
+            {
+                text: APPROVED,
+                value: APPROVED,
+            },
+            {
+                text: REJECTED,
+                value: REJECTED,
+            },
+            {
+                text: CANCELLED,
+                value: CANCELLED,
+            },
+        ],
+    },
+    {
+        title: "Quick access",
+        key: "quick-access",
+        sorter: false,
+        class: "text-end",
+    },
+    {
+        title: "Action",
+        key: "action",
+        class: "text-end",
+    },
+];
+</script>
+
+
 <template>
     <div class="page-wrapper">
         <div class="content">
             <!-- Page Header -->
-            <breadcrumb :title="title" :text="text" path="expenses" />
+            <breadcrumb
+                title="New Expense"
+                text="Expenses"
+                path="/accounts/expenses/create"
+            />
             <!-- /Page Header -->
 
             <div class="row">
@@ -14,66 +212,35 @@
                                 <div class="row align-items-center">
                                     <div class="col">
                                         <div class="doctor-table-blk">
-                                            <h3>Expenses List</h3>
+                                            <h3>Expenses</h3>
                                             <div class="doctor-search-blk">
                                                 <div
                                                     class="top-nav-search table-search-blk"
                                                 >
                                                     <form>
                                                         <input
+                                                            v-model="state.search"
                                                             type="text"
                                                             class="form-control"
                                                             placeholder="Search here"
                                                         />
                                                         <a class="btn"
-                                                            ><img
-                                                                src="../../../../assets/img/icons/search-normal.svg"
-                                                                alt=""
+                                                        ><img
+                                                            src="../../../../assets/img/icons/search-normal.svg"
+                                                            alt=""
                                                         /></a>
                                                     </form>
                                                 </div>
                                                 <div class="add-group">
-                                                    <router-link
-                                                        to="add-expense"
-                                                        class="btn btn-primary add-pluss ms-2"
-                                                        ><img
-                                                            src="../../../../assets/img/icons/plus.svg"
-                                                            alt=""
-                                                    /></router-link>
-                                                    <a
-                                                        href="javascript:;"
-                                                        class="btn btn-primary doctor-refresh ms-2"
-                                                        ><img
-                                                            src="../../../../assets/img/icons/re-fresh.svg"
-                                                            alt=""
-                                                    /></a>
+                                                    <ButtonGroup
+                                                        model="expenses"
+                                                        :deleted="state.deleted"
+                                                        @on-deleted="stateDeleted"
+                                                        @on-fetch="fetchData(true)"
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div
-                                        class="col-auto text-end float-end ms-auto download-grp"
-                                    >
-                                        <a href="javascript:;" class="me-2"
-                                            ><img
-                                                src="../../../../assets/img/icons/pdf-icon-01.svg"
-                                                alt=""
-                                        /></a>
-                                        <a href="javascript:;" class="me-2"
-                                            ><img
-                                                src="../../../../assets/img/icons/pdf-icon-02.svg"
-                                                alt=""
-                                        /></a>
-                                        <a href="javascript:;" class="me-2"
-                                            ><img
-                                                src="../../../../assets/img/icons/pdf-icon-03.svg"
-                                                alt=""
-                                        /></a>
-                                        <a href="javascript:;"
-                                            ><img
-                                                src="../../../../assets/img/icons/pdf-icon-04.svg"
-                                                alt=""
-                                        /></a>
                                     </div>
                                 </div>
                             </div>
@@ -85,10 +252,11 @@
                                             <div
                                                 class="input-block local-forms"
                                             >
-                                                <label>Item Name </label>
-                                                <input
-                                                    class="form-control"
-                                                    type="text"
+                                                <label>Choose Staff </label>
+                                                <staff-select
+                                                    v-model:value="
+                                                        state.staff_id
+                                                    "
                                                 />
                                             </div>
                                         </div>
@@ -96,11 +264,9 @@
                                             <div
                                                 class="input-block local-forms"
                                             >
-                                                <label>Purchased by </label>
-                                                <vue-select
-                                                    :options="Purchase"
-                                                    id="purchase"
-                                                    placeholder="Select Purchase by"
+                                                <label>Expense Status </label>
+                                                <leave-status-select
+                                                    v-model:value="state.status"
                                                 />
                                             </div>
                                         </div>
@@ -108,40 +274,24 @@
                                             <div
                                                 class="input-block local-forms"
                                             >
-                                                <label>Paid by </label>
-                                                <vue-select
-                                                    :options="Paypal"
-                                                    id="paypal"
-                                                    placeholder="Select Paid by"
+                                                <label>Paid By </label>
+                                                <payments-method
+                                                    v-model:value="state.paid_by"
                                                 />
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-6 col-xl-4">
+                                        <div class="col-12 col-md-6 col-xl-8">
                                             <div
                                                 class="input-block local-forms cal-icon"
                                             >
-                                                <label>From </label>
-                                                <datepicker
-                                                    v-model="startdate"
-                                                    :input-format="dateFormat"
-                                                    class="form-control datetimepicker"
-                                                    :editable="true"
-                                                    :clearable="false"
-                                                    placeholder=""
-                                                />
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-6 col-xl-4">
-                                            <div
-                                                class="input-block local-forms cal-icon"
-                                            >
-                                                <label>To </label>
-                                                <datepicker
-                                                    v-model="startdateOne"
-                                                    :input-format="dateFormat"
-                                                    class="form-control datetimepicker"
-                                                    :editable="true"
-                                                    :clearable="false"
+                                                <label>From To </label>
+                                                <a-range-picker
+                                                    value-format="YYYY-MM-DD"
+                                                    :format="dateFormat()"
+                                                    class="form-control d-flex"
+                                                    :presets="rangePresets"
+                                                    @change="onRangeChange"
+                                                    :suffix-icon="false"
                                                     placeholder=""
                                                 />
                                             </div>
@@ -149,10 +299,12 @@
                                         <div class="col-12 col-md-6 col-xl-4">
                                             <div class="doctor-submit">
                                                 <button
-                                                    type="submit"
+                                                    @click.prevent="
+                                                        resetFilters
+                                                    "
                                                     class="btn btn-primary submit-list-form me-2"
                                                 >
-                                                    Search
+                                                    Reset
                                                 </button>
                                             </div>
                                         </div>
@@ -161,115 +313,93 @@
                             </div>
 
                             <div class="table-responsive">
-                                <a-table
-                                    class="table border-0 custom-table comman-table datatable mb-0"
-                                    :columns="columns"
-                                    :data-source="data"
+                                <a-skeleton
+                                    :loading="isLoading"
+                                    active
+                                    :paragraph="{ rows: 25 }"
                                 >
-                                    <template #bodyCell="{ column, record }">
-                                        <template
-                                            v-if="column.key === 'Purchaseby'"
-                                        >
-                                            <div class="profile-image">
-                                                <router-link to="/profile"
-                                                    ><img
-                                                        width="28"
-                                                        height="28"
-                                                        :src="`/src/assets/img/profiles/${record.Avatar}`"
-                                                        class="rounded-circle m-r-5"
-                                                        alt=""
-                                                    />
-                                                    {{
-                                                        record.Purchaseby
-                                                    }}</router-link
-                                                >
-                                            </div>
-                                        </template>
-                                        <template
-                                            v-else-if="column.key === 'Status'"
-                                        >
-                                            <div>
-                                                <div
-                                                    class="dropdown action-label"
-                                                >
-                                                    <a
-                                                        :class="record.Class"
-                                                        href="javascript:;"
-                                                        data-bs-toggle="dropdown"
-                                                        aria-expanded="false"
-                                                    >
-                                                        {{ record.Status }}
-                                                    </a>
-                                                    <div
-                                                        class="dropdown-menu dropdown-menu-end status-staff"
-                                                    >
-                                                        <a
-                                                            class="dropdown-item"
-                                                            href="javascript:;"
-                                                            >New</a
-                                                        >
-                                                        <a
-                                                            class="dropdown-item"
-                                                            href="javascript:;"
-                                                            >Pending</a
-                                                        >
-                                                        <a
-                                                            class="dropdown-item"
-                                                            href="javascript:;"
-                                                            >Approved</a
-                                                        >
-                                                        <a
-                                                            class="dropdown-item"
-                                                            href="javascript:;"
-                                                            >Rejected</a
-                                                        >
-                                                    </div>
+                                    <a-table
+                                        class="table border-0 custom-table comman-table datatable mb-0"
+                                        :columns="columns"
+                                        :data-source="data.data"
+                                        :pagination="pagination"
+                                        @change="handleTableChange"
+                                    >
+                                        <template #bodyCell="{ column, record }">
+                                            <template v-if=" column.key === 'Purchaseby' " >
+                                                <div class="profile-image">
+                                                    <router-link to="/profile">
+                                                        <vue-avatar
+                                                            v-if="record.user"
+                                                            :user="record.user"
+                                                        />
+                                                        {{ record.user?.name }}
+                                                    </router-link>
                                                 </div>
-                                            </div>
-                                        </template>
-                                        <template
-                                            v-else-if="column.key === 'action'"
-                                        >
-                                            <div class="text-end">
-                                                <div
-                                                    class="dropdown dropdown-action"
-                                                >
-                                                    <a
-                                                        href="javascript:;"
-                                                        class="action-icon dropdown-toggle"
-                                                        data-bs-toggle="dropdown"
-                                                        aria-expanded="false"
-                                                        ><i
-                                                            class="fa fa-ellipsis-v"
-                                                        ></i
-                                                    ></a>
-                                                    <div
-                                                        class="dropdown-menu dropdown-menu-end"
-                                                    >
-                                                        <router-link
-                                                            class="dropdown-item"
-                                                            to="edit-expense"
-                                                            ><i
-                                                                class="fa-solid fa-pen-to-square m-r-5"
-                                                            ></i>
-                                                            Edit</router-link
-                                                        >
-                                                        <a
-                                                            class="dropdown-item"
-                                                            href="javascript:;"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#delete_patient"
-                                                            ><i
-                                                                class="fa fa-trash-alt m-r-5"
-                                                            ></i>
-                                                            Delete</a
-                                                        >
-                                                    </div>
+                                            </template>
+
+                                            <template v-else-if="column.key === 'status'">
+                                                <div><span
+                                                    class="badge"
+                                                    :class="defineClassByStatus(record.status)">{{record.status}}</span>
                                                 </div>
-                                            </div>
+                                            </template>
+
+                                            <template v-else-if="column.key === 'LeaveType'" >
+                                                <div>
+                                                    <p class="mt-3"> {{ record.leave_type.name}}
+                                                    </p>
+                                                </div>
+                                            </template>
+
+                                            <template v-else-if="column.key ===  'quick-access'">
+                                                <div class="text-end d-flex justify-content-end align-items-center" >
+                                                    <ul class="icons-list mt-3">
+                                                        <template v-if=" !state.deleted " >
+                                                            <active-model
+                                                                v-if=" $can(`enabled expenses`) "
+                                                                @on-enabled=" enableAction( record.id ) "
+                                                                :title-tooltip=" APPROVED "
+                                                            />
+                                                            <inactive-model
+                                                                v-if=" $can(`disabled expenses`) "
+                                                                @on-disabled=" disableAction( record.id ) "
+                                                                :title-tooltip=" REJECTED "
+                                                            />
+                                                        </template>
+                                                    </ul>
+                                                </div>
+                                            </template>
+
+                                            <template v-else-if="column.key === 'action'">
+                                                <div class="text-end d-flex justify-content-end align-items-center" >
+                                                    <ul class="icons-list mt-3">
+                                                        <template
+                                                            v-if=" !state.deleted "
+                                                        >
+                                                            <edit-model
+                                                                :id="record.id"
+                                                                model="expenses"
+                                                            />
+                                                            <delete-model
+                                                                v-if="$can(`delete expenses`)"
+                                                                @on-delete="deleteAction(record.id)"
+                                                            />
+                                                        </template>
+                                                        <template v-if="state.deleted">
+                                                            <restore-model v-if="$can(`restore expenses`)"
+                                                                           @on-restore="restoreAction(record.id)"
+                                                            />
+                                                            <force-delete-model v-if=" $can(`force-delete expenses`)"
+                                                                                @on-delete="forceDeleteAction(record.id)"
+                                                            />
+                                                        </template>
+                                                    </ul>
+                                                </div>
+                                            </template>
                                         </template>
-                                    </template>
-                                </a-table>
+                                    </a-table>
+                                </a-skeleton>
                             </div>
                         </div>
                     </div>
@@ -277,218 +407,4 @@
             </div>
         </div>
     </div>
-    <delete></delete>
 </template>
-
-<script>
-const columns = [
-    {
-        title: "Item",
-        dataIndex: "Item",
-        sorter: {
-            compare: (a, b) => {
-                a = a.Item.toLowerCase();
-                b = b.Item.toLowerCase();
-                return a > b ? -1 : b > a ? 1 : 0;
-            },
-        },
-    },
-    {
-        title: "Purchase From",
-        dataIndex: "PurchaseFrom",
-        sorter: {
-            compare: (a, b) => {
-                a = a.PurchaseFrom.toLowerCase();
-                b = b.PurchaseFrom.toLowerCase();
-                return a > b ? -1 : b > a ? 1 : 0;
-            },
-        },
-    },
-    {
-        title: "Purchase by",
-        dataIndex: "Purchaseby",
-        key: "Purchaseby",
-        sorter: {
-            compare: (a, b) => {
-                a = a.Purchaseby.toLowerCase();
-                b = b.Purchaseby.toLowerCase();
-                return a > b ? -1 : b > a ? 1 : 0;
-            },
-        },
-    },
-    {
-        title: "Paid by",
-        dataIndex: "Paidby",
-        sorter: {
-            compare: (a, b) => {
-                a = a.Paidby.toLowerCase();
-                b = b.Paidby.toLowerCase();
-                return a > b ? -1 : b > a ? 1 : 0;
-            },
-        },
-    },
-    {
-        title: "Date",
-        dataIndex: "Date",
-        sorter: {
-            compare: (a, b) => {
-                a = a.Date.toLowerCase();
-                b = b.Date.toLowerCase();
-                return a > b ? -1 : b > a ? 1 : 0;
-            },
-        },
-    },
-    {
-        title: "Amount",
-        dataIndex: "Amount",
-        sorter: {
-            compare: (a, b) => {
-                a = a.Amount.toLowerCase();
-                b = b.Amount.toLowerCase();
-                return a > b ? -1 : b > a ? 1 : 0;
-            },
-        },
-    },
-    {
-        title: "Status",
-        dataIndex: "Status",
-        key: "Status",
-        sorter: {
-            compare: (a, b) => {
-                a = a.Status.toLowerCase();
-                b = b.Status.toLowerCase();
-                return a > b ? -1 : b > a ? 1 : 0;
-            },
-        },
-    },
-    {
-        title: "",
-        key: "action",
-        sorter: true,
-        class: "text-end",
-    },
-];
-
-const data = [
-    {
-        id: "1",
-        Avatar: "avatar-01.jpg",
-        Item: "Anaesthetic machine",
-        PurchaseFrom: "Biomedical Equipment Inc",
-        Purchaseby: "Andrea Lalema",
-        Paidby: "Paypal",
-        Date: "04.10.2022",
-        Amount: "$1000",
-        Status: "Approved",
-        Class: "custom-badge status-green dropdown-toggle",
-    },
-    {
-        id: "2",
-        Avatar: "avatar-03.jpg",
-        Item: "Aspiration Pump",
-        PurchaseFrom: "Medi Pro Service",
-        Purchaseby: "William Stephin",
-        Paidby: "Cheque",
-        Date: "08.10.2022",
-        Amount: "$2000",
-        Status: "Rejected",
-        Class: "custom-badge status-pink dropdown-toggle",
-    },
-    {
-        id: "3",
-        Avatar: "avatar-02.jpg",
-        Item: "Anaesthetic machine",
-        PurchaseFrom: "Biomedical Equipment Inc",
-        Purchaseby: "Smith Bruklin",
-        Paidby: "Paypal",
-        Date: "04.10.2022",
-        Amount: "$1000",
-        Status: "Pending",
-        Class: "custom-badge status-orange dropdown-toggle",
-    },
-    {
-        id: "4",
-        Avatar: "avatar-04.jpg",
-        Item: "Anaesthetic machine",
-        PurchaseFrom: "Biomedical Equipment Inc",
-        Purchaseby: "Bernardo James",
-        Paidby: "Paypal",
-        Date: "04.10.2022",
-        Amount: "$1000",
-        Status: "New",
-        Class: "custom-badge status-purple dropdown-toggle",
-    },
-    {
-        id: "5",
-        Avatar: "avatar-06.jpg",
-        Item: "Medical Expenses",
-        PurchaseFrom: "Hi-life Medicals",
-        Purchaseby: "Cristina Groves",
-        Paidby: "Debit Card",
-        Date: "03.10.2022",
-        Amount: "$1600",
-        Status: "Approved",
-        Class: "custom-badge status-green dropdown-toggle",
-    },
-    {
-        id: "6",
-        Avatar: "avatar-05.jpg",
-        Item: "Anaesthetic machine",
-        PurchaseFrom: "Biomedical Equipment Inc",
-        Purchaseby: "Mark Hay Smith",
-        Paidby: "Paypal",
-        Date: "04.10.2022",
-        Amount: "$1000",
-        Status: "Approved",
-        Class: "custom-badge status-green dropdown-toggle",
-    },
-    {
-        id: "7",
-        Avatar: "avatar-01.jpg",
-        Item: "Aspiration Pump",
-        PurchaseFrom: "Medi Pro Service",
-        Purchaseby: "Andrea Lalema",
-        Paidby: "Cheque",
-        Date: "06.10.2022",
-        Amount: "$4000",
-        Status: "Rejected",
-        Class: "custom-badge status-pink dropdown-toggle",
-    },
-    {
-        id: "8",
-        Avatar: "avatar-02.jpg",
-        Item: "Medical Expenses",
-        PurchaseFrom: "Hi-life Medicals",
-        Purchaseby: "Smith Bruklin",
-        Paidby: "Debit Card",
-        Date: "04.10.2022",
-        Amount: "$1000",
-        Status: "Approved",
-        Class: "custom-badge status-green dropdown-toggle",
-    },
-];
-
-import { ref } from "vue";
-const currentDate = ref(new Date());
-const currentDateOne = ref(new Date());
-export default {
-    data() {
-        return {
-            title: "Accounts",
-            text: "Expenses",
-            startdate: currentDate,
-            startdateOne: currentDateOne,
-            dateFormat: "dd-MM-yyyy",
-            columns,
-            data,
-            Purchase: [
-                "Select Purchase by",
-                "Bernardo James",
-                "Galaviz Lalema",
-                "Tarah Williams",
-            ],
-            Paypal: ["Select Paid by", "Paypal", "Cheque", "Debit Card"],
-        };
-    },
-};
-</script>

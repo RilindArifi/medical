@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import {ref, watch} from "vue";
 import useForm from "@/composables/form.js";
 import { required } from "@vuelidate/validators";
 import PatientSelect from "@/components/patients/PatientSelect.vue";
@@ -10,12 +10,12 @@ import useModelOperations from "@/composables/model-operations.js";
 import { useRoute, useRouter } from "vue-router";
 import { dateFormat } from "@/utils/strings.js";
 import { PENDING } from "@/enums/status-appointments.js";
+import router from "@/router/index.js";
 
 const model = ref({}),
     models = useModelOperations("appointments"),
     route = useRoute(),
-    router = useRouter(),
-    modelId = route.params.id,
+    modelId = ref(route.params.id),
     {
         isLoading,
         state,
@@ -83,12 +83,12 @@ const model = ref({}),
             return;
         }
         await prepareRequest(() =>
-            (modelId
-                ? models.updateAction(modelId, state.value)
+            (modelId.value
+                ? models.updateAction(modelId.value, state.value)
                 : models.storeAction(state.value)
             ).then((response) => {
                 message.success(
-                    `Appointment was successfully ${modelId ? "updated" : "created"}.`,
+                    `Appointment was successfully ${modelId.value ? "updated" : "created"}.`,
                 );
                 router.push({
                     name: "appointments.edit",
@@ -96,17 +96,27 @@ const model = ref({}),
                 });
             }),
         );
+    },
+    fetchModelData = (id) => {
+        isLoading.value = true;
+        models
+            .fetchSingle(id)
+            .then((response) => {
+                model.value = response.data.data;
+            })
+            .finally(() => (isLoading.value = false));
     };
 
-if (modelId) {
-    isLoading.value = true;
-    models
-        .fetchSingle(modelId)
-        .then((response) => {
-            model.value = response.data.data;
-        })
-        .finally(() => (isLoading.value = false));
+if (modelId.value) {
+    fetchModelData(modelId.value);
 }
+
+watch(() => route.params.id, (newId) => {
+    modelId.value = newId;
+    if (newId) {
+        fetchModelData(newId);
+    }
+});
 </script>
 <template>
     <div class="page-wrapper">
@@ -122,7 +132,8 @@ if (modelId) {
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-body">
-                            <form @submit.prevent="onSubmit">
+                            <a-spin :spinning="isLoading">
+                                <form @submit.prevent="onSubmit">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="row">
@@ -354,6 +365,7 @@ if (modelId) {
                                     </div>
                                 </div>
                             </form>
+                            </a-spin>
                         </div>
                     </div>
                 </div>

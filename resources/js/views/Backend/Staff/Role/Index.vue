@@ -14,6 +14,7 @@ import EditModel from "@/components/table/EditModel.vue";
 import ForceDeleteModel from "@/components/table/DeleteModel.vue";
 import DeleteModel from "@/components/table/DeleteModel.vue";
 import RestoreModel from "@/components/table/RestoreModel.vue";
+import VueAvatar from "@/components/VueAvatar.vue";
 
 const model = useModelOperations("roles"),
     isLoading = ref(false),
@@ -73,6 +74,12 @@ const model = useModelOperations("roles"),
 watch(state, () => fetchData(true), { immediate: true });
 
 const columns = [
+    {
+        title: "#",
+        dataIndex: "id",
+        key: "id",
+        sorter: {},
+    },
     {
         title: "Name",
         dataIndex: "name",
@@ -163,6 +170,13 @@ const columns = [
                                         <template
                                             #bodyCell="{ column, record }"
                                         >
+                                            <template v-if=" column.key === 'id' " >
+                                                <div class="profile-image">
+                                                    <router-link :to="{name: 'roles.edit', params: {id: record.id}}">
+                                                        {{ record.id }}
+                                                    </router-link>
+                                                </div>
+                                            </template>
                                             <template
                                                 v-if="column.key === 'action'"
                                             >

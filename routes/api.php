@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Resources\UserResource;
@@ -18,6 +17,7 @@ use App\Http\Controllers\Api\LeaveController;
 use App\Http\Controllers\Api\LeaveTypeController;
 use App\Http\Controllers\Api\TaxController;
 use App\Http\Controllers\Api\EmployeeSalaryController;
+use App\Http\Controllers\Api\ExpenseController;
 
 
 Route::middleware(['auth:api'])->group(function () {
@@ -56,6 +56,7 @@ Route::middleware(['auth:api'])->group(function () {
         LeaveController::class       => 'leaves',
         TaxController::class         => 'taxes',
         EmployeeSalaryController::class   => 'employee_salaries',
+        ExpenseController::class     => 'expenses',
     ];
 
     foreach ($controllers as $controller => $prefix) {

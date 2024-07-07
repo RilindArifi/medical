@@ -50,7 +50,7 @@ class AppointmentService extends ModelService
             ])->assignRole(RolesEnum::PATIENT->value);
         }
 
-        $this->model->updateOrCreate(['id' => $this->model->id],[
+        $this->model = $this->model->updateOrCreate(['id' => $this->model->id],[
             'date'           =>  data_get($this->data, 'date'),
             'from'           =>  data_get($this->data, 'from'),
             'to'             =>  data_get($this->data, 'to'),

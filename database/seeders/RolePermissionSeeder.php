@@ -141,6 +141,8 @@ class RolePermissionSeeder extends Seeder
             'delete expenses',
             'restore expenses',
             'force-delete expenses',
+            'enabled expenses',
+            'disabled expenses',
 
             'view taxes',
             'create taxes',

@@ -331,15 +331,8 @@ const columns = [
                                         :pagination="pagination"
                                         @change="handleTableChange"
                                     >
-                                        <template
-                                            #bodyCell="{ column, record }"
-                                        >
-                                            <template
-                                                v-if="
-                                                    column.key ===
-                                                    'EmployeeName'
-                                                "
-                                            >
+                                        <template #bodyCell="{ column, record }">
+                                            <template v-if=" column.key === 'EmployeeName' " >
                                                 <div class="profile-image">
                                                     <router-link to="/profile">
                                                         <vue-avatar
@@ -351,148 +344,60 @@ const columns = [
                                                 </div>
                                             </template>
 
-                                            <template
-                                                v-else-if="
-                                                    column.key === 'status'
-                                                "
-                                            >
-                                                <div>
-                                                    <span
+                                            <template v-else-if="column.key === 'status'">
+                                                <div><span
                                                         class="badge"
-                                                        :class="
-                                                            defineClassByStatus(
-                                                                record.status,
-                                                            )
-                                                        "
-                                                        >{{
-                                                            record.status
-                                                        }}</span
-                                                    >
+                                                        :class="defineClassByStatus(record.status)">{{record.status}}</span>
                                                 </div>
                                             </template>
 
-                                            <template
-                                                v-else-if="
-                                                    column.key === 'LeaveType'
-                                                "
-                                            >
+                                            <template v-else-if="column.key === 'LeaveType'" >
                                                 <div>
-                                                    <p class="mt-3">
-                                                        {{
-                                                            record.leave_type
-                                                                .name
-                                                        }}
+                                                    <p class="mt-3"> {{ record.leave_type.name}}
                                                     </p>
                                                 </div>
                                             </template>
 
-                                            <template
-                                                v-else-if="
-                                                    column.key ===
-                                                    'quick-access'
-                                                "
-                                            >
-                                                <div
-                                                    class="text-end d-flex justify-content-end align-items-center"
-                                                >
+                                            <template v-else-if="column.key ===  'quick-access'">
+                                                <div class="text-end d-flex justify-content-end align-items-center" >
                                                     <ul class="icons-list mt-3">
-                                                        <template
-                                                            v-if="
-                                                                !state.deleted
-                                                            "
-                                                        >
+                                                        <template v-if=" !state.deleted " >
                                                             <active-model
-                                                                v-if="
-                                                                    $can(
-                                                                        `enabled leaves`,
-                                                                    )
-                                                                "
-                                                                @on-enabled="
-                                                                    enableAction(
-                                                                        record.id,
-                                                                    )
-                                                                "
-                                                                :title-tooltip="
-                                                                    APPROVED
-                                                                "
+                                                                v-if=" $can( `enabled leaves`) "
+                                                                @on-enabled=" enableAction( record.id ) "
+                                                                :title-tooltip=" APPROVED "
                                                             />
                                                             <inactive-model
-                                                                v-if="
-                                                                    $can(
-                                                                        `disabled leaves`,
-                                                                    )
-                                                                "
-                                                                @on-disabled="
-                                                                    disableAction(
-                                                                        record.id,
-                                                                    )
-                                                                "
-                                                                :title-tooltip="
-                                                                    REJECTED
-                                                                "
+                                                                v-if=" $can( `disabled leaves` ) "
+                                                                @on-disabled=" disableAction( record.id ) "
+                                                                :title-tooltip=" REJECTED "
                                                             />
                                                         </template>
                                                     </ul>
                                                 </div>
                                             </template>
 
-                                            <template
-                                                v-else-if="
-                                                    column.key === 'action'
-                                                "
-                                            >
-                                                <div
-                                                    class="text-end d-flex justify-content-end align-items-center"
-                                                >
+                                            <template v-else-if="column.key === 'action'">
+                                                <div class="text-end d-flex justify-content-end align-items-center" >
                                                     <ul class="icons-list mt-3">
                                                         <template
-                                                            v-if="
-                                                                !state.deleted
-                                                            "
+                                                            v-if=" !state.deleted "
                                                         >
                                                             <edit-model
                                                                 :id="record.id"
                                                                 model="leaves"
                                                             />
                                                             <delete-model
-                                                                v-if="
-                                                                    $can(
-                                                                        `delete leaves`,
-                                                                    )
-                                                                "
-                                                                @on-delete="
-                                                                    deleteAction(
-                                                                        record.id,
-                                                                    )
-                                                                "
+                                                                v-if="$can(`delete leaves`)"
+                                                                @on-delete="deleteAction(record.id)"
                                                             />
                                                         </template>
-                                                        <template
-                                                            v-if="state.deleted"
-                                                        >
-                                                            <restore-model
-                                                                v-if="
-                                                                    $can(
-                                                                        `restore leaves`,
-                                                                    )
-                                                                "
-                                                                @on-restore="
-                                                                    restoreAction(
-                                                                        record.id,
-                                                                    )
-                                                                "
+                                                        <template v-if="state.deleted">
+                                                            <restore-model v-if="$can(`restore leaves`)"
+                                                                @on-restore="restoreAction(record.id)"
                                                             />
-                                                            <force-delete-model
-                                                                v-if="
-                                                                    $can(
-                                                                        `force-delete leaves`,
-                                                                    )
-                                                                "
-                                                                @on-delete="
-                                                                    forceDeleteAction(
-                                                                        record.id,
-                                                                    )
-                                                                "
+                                                            <force-delete-model v-if=" $can(`force-delete leaves`)"
+                                                                @on-delete="forceDeleteAction(record.id)"
                                                             />
                                                         </template>
                                                     </ul>

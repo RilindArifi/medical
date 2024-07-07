@@ -15,7 +15,7 @@ const model = ref({}),
     models = useModelOperations("roles"),
     route = useRoute(),
     router = useRouter(),
-    modelId = route.params.id,
+    modelId = ref(route.params.id),
     permission = useModelOperations("permissions"),
     options = ref([]),
     expandedKeys = ref([]),
@@ -55,12 +55,12 @@ const model = ref({}),
             return;
         }
         await prepareRequest(() =>
-            (modelId
-                ? models.updateAction(modelId, state.value)
+            (modelId.value
+                ? models.updateAction(modelId.value, state.value)
                 : models.storeAction(state.value)
             ).then((response) => {
                 message.success(
-                    `Role was successfully ${modelId ? "updated" : "created"}.`,
+                    `Role was successfully ${modelId.value ? "updated" : "created"}.`,
                 );
                 router.push({
                     name: "roles.edit",
@@ -68,21 +68,27 @@ const model = ref({}),
                 });
             }),
         );
+    },
+    fetchModelData = (id) => {
+        isLoading.value = true;
+        models
+            .fetchSingle(id)
+            .then((response) => {
+                model.value = response.data.data;
+            })
+            .finally(() => (isLoading.value = false));
     };
 
-if (modelId) {
-    isLoading.value = true;
-    models
-        .fetchSingle(modelId)
-        .then((response) => {
-            model.value = response.data.data;
-            checkedKeys.value =
-                response.data.data.permissions?.map(
-                    (permission) => permission.name,
-                ) ?? [];
-        })
-        .finally(() => (isLoading.value = false));
+if (modelId.value) {
+    fetchModelData(modelId.value);
 }
+
+watch(() => route.params.id, (newId) => {
+    modelId.value = newId;
+    if (newId) {
+        fetchModelData(newId);
+    }
+});
 
 watch(checkedKeys, () => {
     state.value.permissions = [];
